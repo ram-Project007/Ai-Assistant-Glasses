@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: ai-assistive-glasses
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/ai_assistive_glasses?createDatabaseIfNotExist=false&useSSL=false&serverTimezone=UTC
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:DBMS}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+server:
+  port: 8080
+
+jwt:
+  # DEV ONLY DEFAULT. Override with the JWT_SECRET env var in every real
+  # environment - never ship this literal value to production.
+  # Must decode to >= 256 bits for HS256 (this default is fine for local dev).
+  secret: ${JWT_SECRET=jsvvddfv-jved-78441-vffdgAsDFG-jjdvjds123-1234}
+  expiration: ${JWT_EXPIRATION:86400000} # 24 hours, in milliseconds
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+logging:
+  level:
+    org.springframework.security: INFO
+    com.aiassistiveglasses: DEBUG
