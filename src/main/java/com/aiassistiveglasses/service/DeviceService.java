@@ -30,7 +30,9 @@ public class DeviceService {
                 .deviceName(request.getDeviceName())
                 .deviceIdentifier(request.getDeviceIdentifier())
                 .deviceType(request.getDeviceType())
-                .status(request.getStatus() != null ? request.getStatus() : DeviceStatus.INACTIVE)
+                // Registration records ownership only. A client must not be
+                // able to claim that hardware is connected during creation.
+                .status(DeviceStatus.INACTIVE)
                 .user(owner)
                 .build();
 

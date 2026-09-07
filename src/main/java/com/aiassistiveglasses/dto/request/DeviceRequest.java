@@ -21,8 +21,9 @@ public class DeviceRequest {
     private String deviceType;
 
     /**
-     * Optional. Defaults to INACTIVE on creation if not provided.
-     * Used on update to change status explicitly.
+     * Ignored when registering a device: new devices always begin INACTIVE.
+     * Retained for the existing update endpoint; device communication will
+     * own connection-state transitions in a later phase.
      */
     private DeviceStatus status;
 }

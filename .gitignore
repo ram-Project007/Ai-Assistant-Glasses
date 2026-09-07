@@ -6,3 +6,4 @@ target/
 .DS_Store
 application-local.yml
 .env
+.m2/

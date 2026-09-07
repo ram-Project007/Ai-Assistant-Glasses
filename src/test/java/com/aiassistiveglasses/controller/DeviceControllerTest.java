@@ -79,6 +79,20 @@ class DeviceControllerTest {
     }
 
     @Test
+    void createDeviceAlwaysStartsInactive() throws Exception {
+        DeviceRequest request = new DeviceRequest(
+                "Smart Glasses", "DEV-STATUS-" + System.nanoTime(), "GLASSES_V1",
+                com.aiassistiveglasses.entity.DeviceStatus.CONNECTED);
+
+        mockMvc.perform(post("/api/devices")
+                        .header("Authorization", "Bearer " + userAToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.data.status").value("INACTIVE"));
+    }
+
+    @Test
     void getDevicesReturnsOnlyOwnDevices() throws Exception {
         createDeviceAs(userAToken, "DEV-LIST-A-" + System.nanoTime());
 
